@@ -67,6 +67,9 @@ topic_ccs_tvoc = "v1/" + username + "/things/" + clientid + "/data/7"
 topic_ccs_co2 = "v1/" + username + "/things/" + clientid + "/data/8"
 topic_ccs_temp = "v1/" + username + "/things/" + clientid + "/data/9"
 
+print("Short delay for the CCS811 to begin sampling." + '\n')
+time.sleep(7)
+
 #Loop runs until we force an exit or something breaks
 while True:
   try:
