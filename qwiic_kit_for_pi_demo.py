@@ -39,9 +39,9 @@ mqttc.loop_start()
 
 #Qwiic Board define
 prox = qwiic.QwiicProximity()
-bme = qwiic.QwiicBME280()
-ccs = qwiic.QwiicCCS811()
-oled = qwiic.QwiicMicroOLED()
+bme = qwiic.QwiicBme280()
+ccs = qwiic.QwiicCcs811()
+oled = qwiic.QwiicMicroOled()
 
 #Begin statements 
 prox.begin()
