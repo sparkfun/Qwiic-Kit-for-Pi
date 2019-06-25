@@ -49,6 +49,13 @@ bme.begin()
 ccs.begin()
 oled.begin()
 
+#Used for debugging CCS811
+try:
+    ccs.begin()    
+
+except Exception as e:
+    print(e)
+
 #Setup OLED
 oled.clear(oled.ALL)
 oled.display()
