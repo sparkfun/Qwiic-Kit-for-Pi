@@ -22,7 +22,7 @@ Product Versions
 * [KIT-15367](https://www.sparkfun.com/products/15367) - Same kit but with the Qwiic pHat and different cables. 
 * [KIT-15231](https://www.sparkfun.com/products/retired/15231) - Pi day promo Kit
   
-  License Information
+License Information
 -------------------
 
 This product is _**open source**_! 
