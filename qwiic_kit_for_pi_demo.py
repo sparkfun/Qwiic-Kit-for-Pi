@@ -27,7 +27,7 @@ import sys
 
 #MQTT Cayenne setup - you will need your own username, password and clientid
 #To setup a Cayenne account go to https://mydevices.com/cayenne/signup/
-MQTT_SERVER = "10.8.253.249"
+MQTT_SERVER = "______ENTER_MQTT_SERVER______" #i.e. the Pi's IP ADDRESS, find using `ifconfig` command
 MQTT_PATH = "qwiic_test"
 username = "______ENTER_MQTT_USERNAME____"
 password = "______ENTER_MQTT_PASSWORD____"
