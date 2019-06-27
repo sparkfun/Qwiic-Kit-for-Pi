@@ -27,7 +27,7 @@ import sys
 
 #MQTT Cayenne setup - you will need your own username, password and clientid
 #To setup a Cayenne account go to https://mydevices.com/cayenne/signup/
-MQTT_SERVER = "10.8.253.249"
+MQTT_SERVER = "____ENTER_MQTT_SERVER____"
 MQTT_PATH = "qwiic_test"
 username = "______ENTER_MQTT_USERNAME____"
 password = "______ENTER_MQTT_PASSWORD____"
@@ -70,12 +70,9 @@ topic_bme_altitude = "v1/" + username + "/things/" + clientid + "/data/4"
 topic_prox_proximity = "v1/" + username + "/things/" + clientid + "/data/5"
 topic_prox_ambient = "v1/" + username + "/things/" + clientid + "/data/6"
 
-topic_ccs_tvoc = "v1/" + username + "/things/" + clientid + "/data/7"
-topic_ccs_co2 = "v1/" + username + "/things/" + clientid + "/data/8"
-topic_ccs_temp = "v1/" + username + "/things/" + clientid + "/data/9"
-
-print("Short delay for the CCS811 to begin sampling." + '\n')
-time.sleep(7)
+topic_ccs_temp = "v1/" + username + "/things/" + clientid + "/data/7"
+topic_ccs_tvoc = "v1/" + username + "/things/" + clientid + "/data/8"
+topic_ccs_co2 = "v1/" + username + "/things/" + clientid + "/data/9"
 
 #Loop runs until we force an exit or something breaks
 while True:
@@ -129,15 +126,16 @@ while True:
     #print (time.strftime("%a %b %d %Y %H:%M:%S", time.localtime())) #24-hour time 
     print (time.strftime("%a %b %d %Y %I:%M:%S%p", time.localtime())) #12-hour time
 
-    print ("Distance %.2f " %proximity)
-    print ("Ambient Light %.2f" %ambient)
-
     print ("Humidity %.1f" %humidity)
     print ("Temperature %.1f F" %tempf)
 
-    print ("Altitude %.2f ft" %altitudef)
     print ("Pressure %.2f Pa" %pressure)
-
+    print ("Altitude %.2f ft" %altitudef)
+        
+    print ("CCS Temperature %.1f F" %ccstemp)
+    print ("Distance %.2f " %proximity)
+    print ("Ambient Light %.2f" %ambient)
+    
     print ("TVOC %.2f" %tvoc)
     print ("CO2 %.2f" %co2)
 
@@ -146,14 +144,15 @@ while True:
     #publishing data to Cayenne (we are not publishing everything)
     mqttc.publish (topic_bme_temp, payload = tempf, retain = True)
     mqttc.publish (topic_bme_hum, payload = humidity, retain = True)
+    mqttc.publish (topic_bme_pressure, payload = pressure, retain = True)
     mqttc.publish (topic_bme_altitude, payload = altitudef, retain = True)
-
+    
     mqttc.publish (topic_prox_proximity, payload = proximity, retain = True)
     mqttc.publish (topic_prox_ambient, payload = ambient, retain = True)
-
+    
+    #mqttc.publish (topic_ccs_temp, payload = ccstemp, retain = True)
     mqttc.publish (topic_ccs_tvoc, payload = tvoc, retain = True)
     mqttc.publish (topic_ccs_co2, payload = co2, retain = True)
-    mqttc.publish (topic_ccs_temp, payload = ccstemp, retain = True)
 
     #displaying data to the OLED (we are only displaying a few things because of screen size)
     #with font1 a y difference of 16 is good spacing for each line
