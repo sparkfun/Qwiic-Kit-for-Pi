@@ -18,7 +18,7 @@
 # Distributed as-is; no warranty is given
 # -----------------------------------------------------------------------------
 
-#Must download Qwiic Python Library - github.com/sparkfun/qwiicpy
+#Must download Qwiic Python Library - https://github.com/sparkfun/qwiic_py
 from __future__ import print_function, division
 import paho.mqtt.client as mqtt
 import qwiic 
@@ -175,7 +175,7 @@ while True:
     oled.display()
 
     #delay (number of seconds) so we are not constantly displaying data and overwhelming devices
-    time.sleep(1);
+    time.sleep(5);
 
 
   #if we break things or exit then exit cleanly
