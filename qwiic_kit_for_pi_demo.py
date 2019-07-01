@@ -80,7 +80,8 @@ topic_ccs_co2 = "v1/" + username + "/things/" + clientid + "/data/9"
 while True:
     try:
         if initialize==True:
-            print ("Initializing: BME280 and CCS811 are taking samples before printing and publishing data!")    
+            print ("Initializing: BME280 and CCS811 are taking samples before printing and publishing data!")
+            print (" ")
         else:
             #print ("Finished initializing")
             n=1 #set n back to 1 to read sensor data once in loop
