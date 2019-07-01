@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 
 # -----------------------------------------------------------------------------
-#                 Example Code for Qwiic Pi Starter Kit
+#                 Example Code for Qwiic Kit for Raspberry Pi
 # -----------------------------------------------------------------------------
 # Qwiic Starter Kit Demo for Raspberry Pi
 # Read data from the BME280, CCS811, and VCNL4040 proximity sensor. Then display
 # the data on the screen, the Micro OLED, and send MQTT data to Cayenne.
-# Michelle Shorter @ SparkFun Electronics
+# By: Michelle Shorter @ SparkFun Electronics
 # Original Creation Date: May 29, 2019
 #
 # For the hookup instructions and kit go to:
