@@ -86,115 +86,115 @@ while True:
             n=1 #set n back to 1 to read sensor data once in loop
         for n in range (0,n):
             #print ("n = ", n) #used for debugging for loop
-    
-    #Proximity Sensor variables - these are the available read functions
-    #There are additional functions not listed to set thresholds, current, and more
-    proximity = prox.getProximity()
-    ambient = prox.getAmbient()
-    white = prox.getWhite()
-    close = prox.isClose()
-    away = prox.isAway()
-    light = prox.isLight()
-    dark = prox.isDark()
-    #id = prox.getID()
-
-    #BME280 sensor variables
-    #reference pressure is available to read or set for altitude calculation
-    #referencePressure = bme.getReferencePressure()
-    #bme.setReferencePressure(referencePressure)
-    pressure = bme.readFloatPressure() #in Pa
-    altitudem = bme.readFloatAltitudeMeters()
-    altitudef = bme.readFloatAltitudeFeet()
-    humidity = bme.readFloatHumidity()
-    tempc = bme.readTempC()
-    tempf = bme.readTempF()
-    dewc = bme.dewPointC()
-    dewf = bme.dewPointF()
-
-    #CCS811 sensor variables 
-    #ccsbaseline = getBaseline() #used for telling sensor what 'clean' air is
-    #setBaseline(ccsbaseline)
-    #error = ccs.cherckForStatusError()
-    #data = ccs.dataAvailable()
-    #app = ccs.appValid()
-    #errorRegister = ccs.getErrorRegister()
-    #ccs.enableInterrupts()
-    #ccs.disableInterrupts()
-    #ccs.setDriveMode(mode) #Mode0=Idle, Mode1=read every 1s, Mode2=read every 10s, Mode3=read every 60s, Mode4=RAW mode
-    #ccs.setEnvironmentalData(humidity,temperature)
-    #ccs.setRefResistance()
-    ccs.readAlgorithmResults() #updates the TVOC and CO2 values
-    ccs.readNTC() #updates temp value
-    tvoc = ccs.getTVOC()
-    co2 = ccs.getCO2()
-    ccstemp = ccs.getTemperature()
-    ccsres = ccs.getResistance()
-    
+            
+            #Proximity Sensor variables - these are the available read functions
+            #There are additional functions not listed to set thresholds, current, and more
+            proximity = prox.getProximity()
+            ambient = prox.getAmbient()
+            white = prox.getWhite()
+            close = prox.isClose()
+            away = prox.isAway()
+            light = prox.isLight()
+            dark = prox.isDark()
+            #id = prox.getID()
+            
+            #BME280 sensor variables
+            #reference pressure is available to read or set for altitude calculation
+            #referencePressure = bme.getReferencePressure()
+            #bme.setReferencePressure(referencePressure)
+            pressure = bme.readFloatPressure() #in Pa
+            altitudem = bme.readFloatAltitudeMeters()
+            altitudef = bme.readFloatAltitudeFeet()
+            humidity = bme.readFloatHumidity()
+            tempc = bme.readTempC()
+            tempf = bme.readTempF()
+            dewc = bme.dewPointC()
+            dewf = bme.dewPointF()
+            
+            #CCS811 sensor variables 
+            #ccsbaseline = getBaseline() #used for telling sensor what 'clean' air is
+            #setBaseline(ccsbaseline)
+            #error = ccs.cherckForStatusError()
+            #data = ccs.dataAvailable()
+            #app = ccs.appValid()
+            #errorRegister = ccs.getErrorRegister()
+            #ccs.enableInterrupts()
+            #ccs.disableInterrupts()
+            #ccs.setDriveMode(mode) #Mode0=Idle, Mode1=read every 1s, Mode2=read every 10s, Mode3=read every 60s, Mode4=RAW mode
+            #ccs.setEnvironmentalData(humidity,temperature)
+            #ccs.setRefResistance()
+            ccs.readAlgorithmResults() #updates the TVOC and CO2 values
+            ccs.readNTC() #updates temp value
+            tvoc = ccs.getTVOC()
+            co2 = ccs.getCO2()
+            ccstemp = ccs.getTemperature()
+            ccsres = ccs.getResistance()
+            
             #Give some time for the BME280 and CCS811 to initialize when starting up
             if initialize==True:
                 time.sleep(10)
                 initialize=False
-
-    #printing time and some variables to the screen
-    #https://docs.python.org/3/library/time.html
-    #print (time.strftime("%a %b %d %Y %H:%M:%S", time.localtime())) #24-hour time 
-    print (time.strftime("%a %b %d %Y %I:%M:%S%p", time.localtime())) #12-hour time
-
-    print ("Humidity %.1f" %humidity)
-    print ("Temperature %.1f F" %tempf)
-
-    print ("Pressure %.2f Pa" %pressure)
-    print ("Altitude %.2f ft" %altitudef)
         
-    print ("CCS Temperature %.1f F" %ccstemp)
-    print ("Distance %.2f " %proximity)
-    print ("Ambient Light %.2f" %ambient)
-    
-    print ("TVOC %.2f" %tvoc)
-    print ("CO2 %.2f" %co2)
-
-    print (" ") #blank line for easier readability
-
-    #publishing data to Cayenne (we are not publishing everything)
-    mqttc.publish (topic_bme_temp, payload = tempf, retain = True)
-    mqttc.publish (topic_bme_hum, payload = humidity, retain = True)
-    mqttc.publish (topic_bme_pressure, payload = pressure, retain = True)
-    mqttc.publish (topic_bme_altitude, payload = altitudef, retain = True)
-    
-    mqttc.publish (topic_prox_proximity, payload = proximity, retain = True)
-    mqttc.publish (topic_prox_ambient, payload = ambient, retain = True)
-    
-    #mqttc.publish (topic_ccs_temp, payload = ccstemp, retain = True)
-    mqttc.publish (topic_ccs_tvoc, payload = tvoc, retain = True)
-    mqttc.publish (topic_ccs_co2, payload = co2, retain = True)
-
-    #displaying data to the OLED (we are only displaying a few things because of screen size)
-    #with font1 a y difference of 16 is good spacing for each line
-    #we are converting values to int before printing for space (and we don't really need better resolution)
-    oled.clear(oled.PAGE)
-
-    oled.setCursor(0,0)
-    oled.print("Tmp:")
-    oled.print(int(tempf))
-    oled.print("F")
-    #oled.print(int(temc))
-    #oled.print("C")
-
-    oled.setCursor(0,16)
-    oled.print("RH%:") #Relative Humidity
-    oled.print(int(humidity))
-
-    oled.setCursor(0,32)
-    oled.print("hPa:") #hPa is a more typical output and helps with spacing
-    oled.print(int(pressure/100))
-
-    oled.display()
-
-    #delay (number of seconds) so we are not constantly displaying data and overwhelming devices
-    time.sleep(5)
-
-
-  #if we break things or exit then exit cleanly
-  except (EOFError, SystemExit, KeyboardInterrupt):
-    mqttc.disconnect()
-    sys.exit()
+        #printing time and some variables to the screen
+        #https://docs.python.org/3/library/time.html
+        #print (time.strftime("%a %b %d %Y %H:%M:%S", time.localtime())) #24-hour time 
+        print (time.strftime("%a %b %d %Y %I:%M:%S%p", time.localtime())) #12-hour time
+        
+        print ("Humidity %.1f" %humidity)
+        print ("Temperature %.1f F" %tempf)
+        
+        print ("Pressure %.2f Pa" %pressure)
+        print ("Altitude %.2f ft" %altitudef)
+        
+        print ("CCS Temperature %.1f F" %ccstemp)
+        print ("Distance %.2f " %proximity)
+        print ("Ambient Light %.2f" %ambient)
+        
+        print ("TVOC %.2f" %tvoc)
+        print ("CO2 %.2f" %co2)
+        
+        print (" ") #blank line for easier readability
+        
+        #publishing data to Cayenne (we are not publishing everything)
+        mqttc.publish (topic_bme_temp, payload = tempf, retain = True)
+        mqttc.publish (topic_bme_hum, payload = humidity, retain = True)
+        mqttc.publish (topic_bme_pressure, payload = pressure, retain = True)
+        mqttc.publish (topic_bme_altitude, payload = altitudef, retain = True)
+        
+        mqttc.publish (topic_prox_proximity, payload = proximity, retain = True)
+        mqttc.publish (topic_prox_ambient, payload = ambient, retain = True)
+        
+        #mqttc.publish (topic_ccs_temp, payload = ccstemp, retain = True)
+        mqttc.publish (topic_ccs_tvoc, payload = tvoc, retain = True)
+        mqttc.publish (topic_ccs_co2, payload = co2, retain = True)
+        
+        #displaying data to the OLED (we are only displaying a few things because of screen size)
+        #with font1 a y difference of 16 is good spacing for each line
+        #we are converting values to int before printing for space (and we don't really need better resolution)
+        oled.clear(oled.PAGE)
+        
+        oled.setCursor(0,0)
+        oled.print("Tmp:")
+        oled.print(int(tempf))
+        oled.print("F")
+        #oled.print(int(temc))
+        #oled.print("C")
+        
+        oled.setCursor(0,16)
+        oled.print("RH%:") #Relative Humidity
+        oled.print(int(humidity))
+        
+        oled.setCursor(0,32)
+        oled.print("hPa:") #hPa is a more typical output and helps with spacing
+        oled.print(int(pressure/100))
+        
+        oled.display()
+        
+        #delay (number of seconds) so we are not constantly displaying data and overwhelming devices
+        time.sleep(5)
+        
+        
+    #if we break things or exit then exit cleanly
+    except (EOFError, SystemExit, KeyboardInterrupt):
+        mqttc.disconnect()
+        sys.exit()
