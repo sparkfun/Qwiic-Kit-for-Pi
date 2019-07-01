@@ -25,6 +25,10 @@ import qwiic
 import time
 import sys
 
+#These values are used to give BME280 and CCS811 some time to take samples
+initialize=True
+n=2
+
 #MQTT Cayenne setup - you will need your own username, password and clientid
 #To setup a Cayenne account go to https://mydevices.com/cayenne/signup/
 username = "______ENTER_MQTT_USERNAME____"
@@ -74,8 +78,15 @@ topic_ccs_co2 = "v1/" + username + "/things/" + clientid + "/data/9"
 
 #Loop runs until we force an exit or something breaks
 while True:
-  try:
-
+    try:
+        if initialize==True:
+            print ("Initializing: BME280 and CCS811 are taking samples before printing and publishing data!")    
+        else:
+            #print ("Finished initializing")
+            n=1 #set n back to 1 to read sensor data once in loop
+        for n in range (0,n):
+            #print ("n = ", n) #used for debugging for loop
+    
     #Proximity Sensor variables - these are the available read functions
     #There are additional functions not listed to set thresholds, current, and more
     proximity = prox.getProximity()
@@ -118,6 +129,11 @@ while True:
     co2 = ccs.getCO2()
     ccstemp = ccs.getTemperature()
     ccsres = ccs.getResistance()
+    
+            #Give some time for the BME280 and CCS811 to initialize when starting up
+            if initialize==True:
+                time.sleep(10)
+                initialize=False
 
     #printing time and some variables to the screen
     #https://docs.python.org/3/library/time.html
