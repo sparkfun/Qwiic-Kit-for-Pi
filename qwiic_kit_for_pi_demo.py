@@ -141,8 +141,8 @@ while True:
         #print (time.strftime("%a %b %d %Y %H:%M:%S", time.localtime())) #24-hour time 
         print (time.strftime("%a %b %d %Y %I:%M:%S%p", time.localtime())) #12-hour time
         
+        print ("BME Temperature %.1f F" %tempf)
         print ("Humidity %.1f" %humidity)
-        print ("Temperature %.1f F" %tempf)
         
         print ("Pressure %.2f Pa" %pressure)
         print ("Altitude %.2f ft" %altitudef)
