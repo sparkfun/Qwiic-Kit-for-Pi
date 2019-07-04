@@ -13,7 +13,13 @@ Repository Contents
 
 Documentation
 --------------
-* **[Library](GitHub library URL)** - Python library for the Qwiic Kit for Raspberry Pi.
+* **Python Modules (i.e. Libraries)** - Python library for the Qwiic Kit for Raspberry Pi.
+   * **[Qwiic_I2C_Py](https://github.com/sparkfun/Qwiic_I2C_Py)**
+   * **[Qwiic_CCS811_Py](https://github.com/sparkfun/Qwiic_CCS811_Py)**
+   * **[Qwiic_BME280_Py](https://github.com/sparkfun/Qwiic_BME280_Py)**
+   * **[Qwiic_Proximity_Py](https://github.com/sparkfun/Qwiic_Proximity_Py)**
+   * **[Qwiic_Micro_OLED_Py](https://github.com/sparkfun/Qwiic_Micro_OLED_Py)**
+   * **[Qwiic_Py](https://github.com/sparkfun/Qwiic_Py)**
 * **[Hookup Guide](https://learn.sparkfun.com/tutorials/qwiic-kit-for-raspberry-pi-hookup-guide)** - Basic hookup guide for the Qwiic Kit.
   
 
