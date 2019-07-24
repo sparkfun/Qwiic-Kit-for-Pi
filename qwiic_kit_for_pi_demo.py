@@ -21,7 +21,7 @@
 #Must download Qwiic Python Library - https://github.com/sparkfun/qwiic_py
 from __future__ import print_function, division
 import paho.mqtt.client as mqtt
-import qwiic 
+import qwiic
 import time
 import sys
 
@@ -48,7 +48,7 @@ oled = qwiic.QwiicMicroOled()
 #Begin statements 
 prox.begin()
 bme.begin()
-ccs.begin()
+#ccs.begin()
 oled.begin()
 
 #Used for debugging CCS811
@@ -61,7 +61,7 @@ except Exception as e:
 #Setup OLED
 oled.clear(oled.ALL)
 oled.display()
-oled.setFontType(1) 
+oled.set_font_type(1) 
 
 #set MQTT topics (we are not setting topics for everything)
 topic_bme_temp = "v1/" + username + "/things/" + clientid + "/data/1"
@@ -90,46 +90,50 @@ while True:
             
             #Proximity Sensor variables - these are the available read functions
             #There are additional functions not listed to set thresholds, current, and more
-            proximity = prox.getProximity()
-            ambient = prox.getAmbient()
-            white = prox.getWhite()
-            close = prox.isClose()
-            away = prox.isAway()
-            light = prox.isLight()
-            dark = prox.isDark()
-            #id = prox.getID()
+            proximity = prox.get_proximity()
+            ambient = prox.get_ambient()
+            white = prox.get_white()
+            #close = prox.is_close()
+            #away = prox.is_away()
+            #light = prox.is_light()
+            #dark = prox.is_dark()
+            #id = prox.get_id()
             
             #BME280 sensor variables
             #reference pressure is available to read or set for altitude calculation
-            #referencePressure = bme.getReferencePressure()
-            #bme.setReferencePressure(referencePressure)
-            pressure = bme.readFloatPressure() #in Pa
-            altitudem = bme.readFloatAltitudeMeters()
-            altitudef = bme.readFloatAltitudeFeet()
-            humidity = bme.readFloatHumidity()
-            tempc = bme.readTempC()
-            tempf = bme.readTempF()
-            dewc = bme.dewPointC()
-            dewf = bme.dewPointF()
+            #referencePressure = bme.get_reference_pressure()
+            #bme.set_reference_pressure(referencePressure)
+            pressure = bme.get_reference_pressure() #in Pa
+            altitudem = bme.get_altitude_meters()
+            altitudef = bme.get_altitude_feet()
+            humidity = bme.read_humidity()
+            tempc = bme.get_temperature_celsius()
+            tempf = bme.get_temperature_fahrenheit()
+            dewc = bme.get_dewpoint_celsius()
+            dewf = bme.get_dewpoint_fahrenheit()
             
             #CCS811 sensor variables 
-            #ccsbaseline = getBaseline() #used for telling sensor what 'clean' air is
-            #setBaseline(ccsbaseline)
-            #error = ccs.cherckForStatusError()
-            #data = ccs.dataAvailable()
-            #app = ccs.appValid()
-            #errorRegister = ccs.getErrorRegister()
-            #ccs.enableInterrupts()
-            #ccs.disableInterrupts()
-            #ccs.setDriveMode(mode) #Mode0=Idle, Mode1=read every 1s, Mode2=read every 10s, Mode3=read every 60s, Mode4=RAW mode
-            #ccs.setEnvironmentalData(humidity,temperature)
-            #ccs.setRefResistance()
-            ccs.readAlgorithmResults() #updates the TVOC and CO2 values
-            ccs.readNTC() #updates temp value
-            tvoc = ccs.getTVOC()
-            co2 = ccs.getCO2()
-            ccstemp = ccs.getTemperature()
-            ccsres = ccs.getResistance()
+            #ccsbaseline = get_baseline() #used for telling sensor what 'clean' air is
+            #set_baseline(ccsbaseline)
+            #error = ccs.check_status_error()
+            #data = ccs.data_available()
+            #app = ccs.app_valid()
+            #errorRegister = ccs.get_error_register()
+            #ccs.enable_interrupts()
+            #ccs.disable_interrupts()
+            #ccs.set_drive_mode(mode) #Mode0=Idle, Mode1=read every 1s, Mode2=read every 10s, Mode3=read every 60s, Mode4=RAW mode
+            #ccs.set_environmental_data(humidity,temperature)
+            
+            ccs.read_algorithm_results() #updates the TVOC and CO2 values
+            tvoc = ccs.get_tvoc()
+            co2 = ccs.get_co2()
+            
+            #Note:The following values are used when is a NTC thermistor attached to the CCS811 breakout board
+            #the environmental combo does not breakout the pins like the breakout board
+            #ccs.set_reference_resistance()
+            #ccs.read_ntc() #updates temp value
+            #ccstemp = ccs.get_temperature() 
+            #ccsres = ccs.get_resistance()
             
             #Give some time for the BME280 and CCS811 to initialize when starting up
             if initialize==True:
@@ -147,7 +151,7 @@ while True:
         print ("Pressure %.2f Pa" %pressure)
         print ("Altitude %.2f ft" %altitudef)
         
-        print ("CCS Temperature %.1f F" %ccstemp)
+        #print ("CCS Temperature %.1f F" %ccstemp)
         print ("Distance %.2f " %proximity)
         print ("Ambient Light %.2f" %ambient)
         
@@ -174,18 +178,18 @@ while True:
         #we are converting values to int before printing for space (and we don't really need better resolution)
         oled.clear(oled.PAGE)
         
-        oled.setCursor(0,0)
+        oled.set_cursor(0,0)
         oled.print("Tmp:")
         oled.print(int(tempf))
         oled.print("F")
         #oled.print(int(temc))
         #oled.print("C")
         
-        oled.setCursor(0,16)
+        oled.set_cursor(0,16)
         oled.print("RH%:") #Relative Humidity
         oled.print(int(humidity))
         
-        oled.setCursor(0,32)
+        oled.set_cursor(0,32)
         oled.print("hPa:") #hPa is a more typical output and helps with spacing
         oled.print(int(pressure/100))
         
