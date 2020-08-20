@@ -1,9 +1,9 @@
 SparkFun Qwiic Kit for Raspberry Pi
 ========================================
 
-[![SparkFun Qwiic Kit for Raspberry Pi](https://cdn.sparkfun.com/assets/parts/1/3/9/1/2/15367-SparkFun_Qwiic_Kit_for_Raspberry_Pi-01.jpg)](https://cdn.sparkfun.com/assets/parts/1/3/9/1/2/15367-SparkFun_Qwiic_Kit_for_Raspberry_Pi-01.jpg)
+[![SparkFun Qwiic Kit for Raspberry Pi](https://cdn.sparkfun.com//assets/parts/1/5/7/6/5/16841-SparkFun_Qwiic_Starter_Kit_for_Raspberry_Pi-02.jpg)](https://www.sparkfun.com/products/16841)
 
-[*SparkFun Qwiic Kit for Raspberry Pi (KIT-15367)*](https://www.sparkfun.com/products/15367)
+[*SparkFun Qwiic Kit for Raspberry Pi (KIT-16841)*](https://www.sparkfun.com/products/16841)
 
 <Basic description of the part.>
   
@@ -25,7 +25,10 @@ Documentation
 
 Product Versions
 ----------------
-* [KIT-15367](https://www.sparkfun.com/products/15367) - Same kit but with the Qwiic pHat and different cables. 
+
+
+* [KIT-16841](https://www.sparkfun.com/products/16841) - Same kit but with the Qwiic pHat v2.0.
+* [KIT-15367](https://www.sparkfun.com/products/15367) - Same kit but with the Qwiic pHat, VCNL4040 distance sensor, and less cables. 
 * [KIT-15231](https://www.sparkfun.com/products/retired/15231) - Pi day promo Kit
   
 License Information
