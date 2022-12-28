@@ -110,6 +110,7 @@ while True:
             dewc = bme.get_dewpoint_celsius()
             dewf = bme.get_dewpoint_fahrenheit()
             
+            #SGP40 sensor variable
             voc_index = my_sgp40.get_VOC_index()
             
             #Give some time for the BME280 and SGP40 to initialize when starting up
