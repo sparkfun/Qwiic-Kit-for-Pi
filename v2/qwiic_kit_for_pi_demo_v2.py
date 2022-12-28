@@ -31,7 +31,7 @@ import sys
 #These values are used to give BME280 and SGP40 some time to take samples and log data to Cayenne
 initialize=True
 n=2
-u=0
+u=900
 
 #MQTT Cayenne setup - you will need your own username, password and clientid
 #To setup a Cayenne account go to https://mydevices.com/cayenne/signup/
