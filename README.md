@@ -37,7 +37,7 @@ Documentation
 Product Versions
 ----------------
 
-* [KIT-16841](https://www.sparkfun.com/products/21285) - Removed CCS811, add SGP40, BME280 is now on a separate board. 
+* [KIT-16841](https://www.sparkfun.com/products/21285) - Removed CCS811, add SGP40, and BME280 is now on a separate board. 
 * [KIT-16841](https://www.sparkfun.com/products/16841) - Same kit but with the Qwiic pHat v2.0.
 * [KIT-15367](https://www.sparkfun.com/products/15367) - Same kit but with the Qwiic pHat, VCNL4040 distance sensor, and less cables. 
 * [KIT-15231](https://www.sparkfun.com/products/retired/15231) - Pi day promo Kit
