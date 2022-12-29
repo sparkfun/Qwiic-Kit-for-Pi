@@ -16,7 +16,8 @@ Example code for the SparkFun Qwiic Starter Kit for Raspberry Pi.
 
 Repository Contents
 -------------------
-* **/Firmware** - Example code 
+* **/v1** - Demo code for the Qwiic Starter Kit V1
+* **/v2** - Demo code for the Qwiic Starter Kit V2
 
 Documentation
 --------------
